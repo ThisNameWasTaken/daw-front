@@ -1,0 +1,21 @@
+{
+  "name": "daw-front",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "next build",
+    "serve": "next serve",
+    "start": "next",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@material-ui/core": "^4.8.0",
+    "next": "^9.1.5",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  }
+}
