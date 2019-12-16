@@ -1,53 +1,62 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import BottomNavigation from '@material-ui/core/BottomNavigation';
 import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import {
-  Folder as FolderIcon,
-  Restore as RestoreIcon,
-  Favorite as FavoriteIcon,
-  LocationOn as LocationOnIcon,
+  Home as HomeIcon,
+  Person as PersonIcon,
+  ArrowUpward as UploadIcon,
+  Search as SearchIcon,
 } from '@material-ui/icons';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
   root: {
-    width: 500,
+    position: 'fixed',
+    bottom: 0,
+    width: '100%',
   },
 });
 
 export default function LabelBottomNavigation() {
   const classes = useStyles({});
-  const [value, setValue] = React.useState('recents');
+  const [state, setState] = useState();
 
-  const handleChange = (event, newValue) => {
-    setValue(newValue);
+  const router = useRouter();
+
+  useEffect(() => {
+    setState(router.pathname.split('/')[1]);
+  }, []);
+
+  const handleChange = (event, route) => {
+    setState(route);
+
+    if (router.pathname === `/${route}`) return;
+
+    router.push(`/${route}`);
   };
 
   return (
     <BottomNavigation
-      value={value}
+      value={state}
       onChange={handleChange}
       className={classes.root}
     >
+      <BottomNavigationAction label="Home" value="" icon={<HomeIcon />} />
       <BottomNavigationAction
-        label='Recents'
-        value='recents'
-        icon={<RestoreIcon />}
+        label="Account"
+        value="account"
+        icon={<PersonIcon />}
       />
       <BottomNavigationAction
-        label='Favorites'
-        value='favorites'
-        icon={<FavoriteIcon />}
+        label="Upload"
+        value="upload"
+        icon={<UploadIcon />}
       />
       <BottomNavigationAction
-        label='Nearby'
-        value='nearby'
-        icon={<LocationOnIcon />}
-      />
-      <BottomNavigationAction
-        label='Folder'
-        value='folder'
-        icon={<FolderIcon />}
+        label="Search"
+        value="search"
+        icon={<SearchIcon />}
       />
     </BottomNavigation>
   );

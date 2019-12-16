@@ -2,10 +2,10 @@ import React from 'react';
 
 import Layout from '../layouts/layout';
 
-const Login = () => (
+const Search = () => (
   <>
-    <p>Hello Login</p>
+    <p>Hello Search</p>
   </>
 );
 
-export default Login;
+export default Search;

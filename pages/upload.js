@@ -2,10 +2,10 @@ import React from 'react';
 
 import Layout from '../layouts/layout';
 
-const Login = () => (
+const Upload = () => (
   <>
-    <p>Hello Login</p>
+    <p>Hello Upload</p>
   </>
 );
 
-export default Login;
+export default Upload;
