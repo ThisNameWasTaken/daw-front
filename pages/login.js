@@ -33,10 +33,11 @@ const Login = () => {
     <Grid container>
       <Grid item xs={12}>
         <Paper className={classNames.paper}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
             <TextField
               label="Username"
               name="username"
+              autoComplete="username"
               variant="outlined"
               className={classNames.textField}
               inputRef={register({ required: true })}
@@ -46,6 +47,7 @@ const Login = () => {
             <TextField
               label="Password"
               name="password"
+              autoComplete="current-password"
               variant="outlined"
               className={classNames.textField}
               inputRef={register({ required: true })}
