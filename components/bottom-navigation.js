@@ -15,17 +15,22 @@ const useStyles = makeStyles({
     position: 'fixed',
     bottom: 0,
     width: '100%',
+    transition: 'transform 270ms ease-out',
   },
 });
 
 export default function LabelBottomNavigation() {
   const classes = useStyles({});
-  const [state, setState] = useState();
+  const [state, setState] = useState({ route: null, isActive: false });
 
   const router = useRouter();
 
   useEffect(() => {
-    setState(router.pathname.split('/')[1]);
+    const route = router.pathname.split('/')[1];
+    setState({
+      route,
+      isActive: ['', 'account', 'upload', 'search'].includes(route),
+    });
   }, []);
 
   const handleChange = (event, route) => {
@@ -38,9 +43,12 @@ export default function LabelBottomNavigation() {
 
   return (
     <BottomNavigation
-      value={state}
+      value={state.route}
       onChange={handleChange}
       className={classes.root}
+      style={{ transform: `translateY(${state.isActive ? '0%' : '100%'})` }}
+      aria-hidden={state.isActive}
+      tabindex={state.isActive ? 0 : -1}
     >
       <BottomNavigationAction label="Home" value="" icon={<HomeIcon />} />
       <BottomNavigationAction
