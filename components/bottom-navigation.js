@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import BottomNavigation from '@material-ui/core/BottomNavigation';
-import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import { useRouter } from 'next/router';
+import {
+  BottomNavigation,
+  BottomNavigationAction,
+  makeStyles,
+} from '@material-ui/core';
 import {
   Home as HomeIcon,
   Person as PersonIcon,
   ArrowUpward as UploadIcon,
   Search as SearchIcon,
 } from '@material-ui/icons';
-import { useRouter } from 'next/router';
 
 const useStyles = makeStyles({
   root: {
     position: 'fixed',
     bottom: 0,
     width: '100%',
-    transition: 'transform 270ms ease-out',
+    transition: 'transform 270ms ease',
   },
 });
 
@@ -31,9 +33,9 @@ export default function LabelBottomNavigation() {
       route,
       isActive: ['', 'account', 'upload', 'search'].includes(route),
     });
-  }, []);
+  }, [router]);
 
-  const handleChange = (event, route) => {
+  const onChange = (event, route) => {
     setState(route);
 
     if (router.pathname === `/${route}`) return;
@@ -44,7 +46,7 @@ export default function LabelBottomNavigation() {
   return (
     <BottomNavigation
       value={state.route}
-      onChange={handleChange}
+      onChange={onChange}
       className={classes.root}
       style={{ transform: `translateY(${state.isActive ? '0%' : '100%'})` }}
       aria-hidden={state.isActive}
