@@ -35,17 +35,17 @@ export default function LabelBottomNavigation() {
 
   useEffect(() => {
     const route = router.pathname.split('/')[1];
+    const isActive = navigationRoutes.includes(route);
+
+    document.body.style.paddingBottom = isActive ? '56px' : '';
+
     setState({
       route,
-      isActive: navigationRoutes.includes(route),
+      isActive,
     });
   }, [router]);
 
   const onChange = (event, route) => {
-    setState(route);
-
-    if (router.pathname === `/${route}`) return;
-
     router.push(`/${route}`);
   };
 
