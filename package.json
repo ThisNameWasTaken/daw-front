@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "build": "next build",
+    "heroku-postbuild": "npm run build",
     "serve": "next serve",
-    "start": "next",
+    "start": "next start -p $PORT",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
