@@ -8,6 +8,7 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
+import { getUserData } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   cardContent: {
@@ -30,9 +31,7 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 300,
     margin: 'auto',
     display: 'block',
-  },
-  gridList: {
-    paddingTop: theme.spacing(6),
+    marginBottom: theme.spacing(6),
   },
   photoGrid: {
     position: 'relative',
@@ -41,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     paddingTop: '35%',
     position: 'relative',
     overflow: 'hidden',
-    border: '4px solid #424242',
+    border: '4px solid transparent',
     '& > img': {
       position: 'absolute',
       top: 0,
@@ -50,54 +49,12 @@ const useStyles = makeStyles(theme => ({
       right: 0,
       display: 'block',
       maxWidth: '100%',
+      cursor: 'zoom-in',
     },
   },
 }));
 
-const userData = {
-  profilePhoto: {
-    src:
-      'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-    alt: 'profile photo',
-  },
-  coverPhoto: {
-    src:
-      'https://images.pexels.com/photos/3354641/pexels-photo-3354641.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
-    alt: 'cover photo',
-  },
-  name: 'John Doe',
-  description:
-    'Lorem ipsum dolor sit, amet consectetur adipisicing elit. A blanditiis voluptates ratione dolorum perspiciatis eum tenetur.',
-  photos: [
-    {
-      src:
-        'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      alt: 'gallery photo',
-    },
-    {
-      src:
-        'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      alt: 'gallery photo',
-    },
-    {
-      src:
-        'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      alt: 'gallery photo',
-    },
-    {
-      src:
-        'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      alt: 'gallery photo',
-    },
-    {
-      src:
-        'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-      alt: 'gallery photo',
-    },
-  ],
-};
-
-const Profile = () => {
+const Profile = ({ userData }) => {
   const classNames = useStyles({});
 
   return (
@@ -148,5 +105,9 @@ const Profile = () => {
     </Container>
   );
 };
+
+Profile.getInitialProps = async () => ({
+  userData: await getUserData('e2H4aD3j1'),
+});
 
 export default Profile;
