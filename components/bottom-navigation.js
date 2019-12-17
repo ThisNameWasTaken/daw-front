@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import {
   Home as HomeIcon,
-  Person as PersonIcon,
+  Person as ProfileIcon,
   ArrowUpward as UploadIcon,
   Search as SearchIcon,
 } from '@material-ui/icons';
@@ -27,7 +27,7 @@ export default function LabelBottomNavigation() {
 
   const router = useRouter();
 
-  const navigationRoutes = ['', 'account', 'upload', 'search'];
+  const navigationRoutes = ['', 'profile', 'upload', 'search'];
 
   useEffect(() => {
     navigationRoutes.forEach(route => router.prefetch(`/${route}`));
@@ -60,9 +60,9 @@ export default function LabelBottomNavigation() {
     >
       <BottomNavigationAction label="Home" value="" icon={<HomeIcon />} />
       <BottomNavigationAction
-        label="Account"
-        value="account"
-        icon={<PersonIcon />}
+        label="Profile"
+        value="profile"
+        icon={<ProfileIcon />}
       />
       <BottomNavigationAction
         label="Upload"
