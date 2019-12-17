@@ -48,7 +48,7 @@ export default function LabelBottomNavigation() {
       className={classes.root}
       style={{ transform: `translateY(${state.isActive ? '0%' : '100%'})` }}
       aria-hidden={state.isActive}
-      tabindex={state.isActive ? 0 : -1}
+      tabIndex={state.isActive ? 0 : -1}
     >
       <BottomNavigationAction label="Home" value="" icon={<HomeIcon />} />
       <BottomNavigationAction
