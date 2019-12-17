@@ -27,11 +27,17 @@ export default function LabelBottomNavigation() {
 
   const router = useRouter();
 
+  const navigationRoutes = ['', 'account', 'upload', 'search'];
+
+  useEffect(() => {
+    navigationRoutes.forEach(route => router.prefetch(`/${route}`));
+  }, []);
+
   useEffect(() => {
     const route = router.pathname.split('/')[1];
     setState({
       route,
-      isActive: ['', 'account', 'upload', 'search'].includes(route),
+      isActive: navigationRoutes.includes(route),
     });
   }, [router]);
 
