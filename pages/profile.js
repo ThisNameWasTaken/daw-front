@@ -11,6 +11,9 @@ import {
 import { getUserData } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    padding: 0,
+  },
   cardContent: {
     position: 'relative',
     padding: 0,
@@ -62,7 +65,7 @@ const Profile = ({ userData }) => {
   const classNames = useStyles({});
 
   return (
-    <Container>
+    <Container className={classNames.container}>
       <Card>
         <CardMedia
           component="img"
