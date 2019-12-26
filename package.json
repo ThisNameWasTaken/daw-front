@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "next": "next",
     "build": "next build",
     "heroku-postbuild": "npm run build",
     "serve": "next serve",
