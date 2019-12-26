@@ -1,12 +1,15 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Container } from '@material-ui/core';
+
+import Post from '../components/post';
 
 const Index = () => (
   <>
-    <p>Hello Index</p>
-    <Button variant="contained" color="secondary">
-      Hello
-    </Button>
+    <Container>
+      <Post />
+      <Post />
+      <Post />
+    </Container>
   </>
 );
 
