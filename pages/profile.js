@@ -101,7 +101,12 @@ const Profile = ({ userData }) => {
           <Container maxWidth="md" className={classNames.photoGalleryContainer}>
             <Grid container className={classNames.photoGalleryGrid}>
               {userData.photos.map(photo => (
-                <Grid item className={classNames.photoGalleryGridItem} xs={4}>
+                <Grid
+                  item
+                  className={classNames.photoGalleryGridItem}
+                  xs={4}
+                  key={photo.src}
+                >
                   <img src={photo.src} alt={photo.alt} />
                 </Grid>
               ))}
