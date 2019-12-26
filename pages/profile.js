@@ -13,6 +13,7 @@ import { getUserData } from '../services/user';
 const useStyles = makeStyles(theme => ({
   cardContent: {
     position: 'relative',
+    padding: 0,
     paddingTop: 'calc(10vh + 16px)',
   },
   cardMedia: {
@@ -33,14 +34,17 @@ const useStyles = makeStyles(theme => ({
     display: 'block',
     marginBottom: theme.spacing(6),
   },
-  photoGrid: {
+  photoGalleryContainer: {
+    padding: 0,
+  },
+  photoGalleryGrid: {
     position: 'relative',
   },
-  photoGridItem: {
+  photoGalleryGridItem: {
     paddingTop: '35%',
     position: 'relative',
     overflow: 'hidden',
-    border: '4px solid transparent',
+    border: '2px solid transparent',
     '& > img': {
       position: 'absolute',
       top: 0,
@@ -91,10 +95,10 @@ const Profile = ({ userData }) => {
             {userData.description}
           </Typography>
 
-          <Container maxWidth="md">
-            <Grid container className={classNames.photoGrid}>
+          <Container maxWidth="md" className={classNames.photoGalleryContainer}>
+            <Grid container className={classNames.photoGalleryGrid}>
               {userData.photos.map(photo => (
-                <Grid item className={classNames.photoGridItem} xs={4}>
+                <Grid item className={classNames.photoGalleryGridItem} xs={4}>
                   <img src={photo.src} alt={photo.alt} />
                 </Grid>
               ))}
