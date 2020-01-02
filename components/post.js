@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-  Collapse,
   Card,
   CardHeader,
   Avatar,
@@ -19,7 +18,6 @@ import {
   Favorite as FavoriteIcon,
   Share as ShareIcon,
 } from '@material-ui/icons';
-import clsx from 'clsx';
 
 const useStyles = makeStyles(theme => ({
   card: {
@@ -72,10 +70,6 @@ const useStyles = makeStyles(theme => ({
 const Post = () => {
   const classNames = useStyles({});
 
-  const [expanded, setExpanded] = useState(false);
-
-  const onExpand = event => setExpanded(!expanded);
-
   const onAddComment = event => console.log('comment');
 
   return (
@@ -95,7 +89,6 @@ const Post = () => {
         subheader="Dec 26, 2019"
       />
       <CardMedia
-        // component="img"
         className={classNames.media}
         image="https://images.pexels.com/photos/3336152/pexels-photo-3336152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         title="Cabs on a London street"
@@ -111,28 +104,13 @@ const Post = () => {
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
-        <Typography
-          variant="body2"
-          component="p"
-          // className={classNames.likesCount}
-        >
+        <Typography variant="body2" component="p">
           32 likes
         </Typography>
 
         <IconButton aria-label="share" className={classNames.shareButton}>
           <ShareIcon />
         </IconButton>
-        {/* <IconButton
-          onClick={onExpand}
-          aria-expanded={expanded}
-          aria-label={expanded ? 'show less' : 'show more'}
-        >
-          <ExpandMoreIcon
-            className={clsx(classNames.expandMoreIcon, {
-              [classNames.expandMoreIconOn]: expanded,
-            })}
-          />
-        </IconButton> */}
       </CardActions>
 
       <CardActions className={classNames.cardActions}>
@@ -161,18 +139,6 @@ const Post = () => {
           />
         </div>
       </CardActions>
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and
-            set aside for 10 minutes.
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Set aside off of the heat to let rest for 10 minutes, and then
-            serve.
-          </Typography>
-        </CardContent>
-      </Collapse>
     </Card>
   );
 };
