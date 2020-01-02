@@ -10,9 +10,12 @@ import {
   CardActions,
   Typography,
   makeStyles,
+  TextField,
+  InputAdornment,
 } from '@material-ui/core';
 import {
-  ExpandMore as ExpandMoreIcon,
+  Send as SendIcon,
+  MoreVert as MoreVertIcon,
   Favorite as FavoriteIcon,
   Share as ShareIcon,
 } from '@material-ui/icons';
@@ -26,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
-  expandButton: {
+  shareButton: {
     marginLeft: 'auto',
   },
   expandMoreIcon: {
@@ -51,6 +54,19 @@ const useStyles = makeStyles(theme => ({
     left: theme.spacing(2),
     transform: 'translateY(50%)',
   },
+  commentInputContainer: {
+    paddingLeft: theme.spacing(1),
+    display: 'flex',
+    alignItems: 'center',
+    width: '100%',
+  },
+  commentInput: {
+    flexGrow: 1,
+    marginLeft: theme.spacing(1),
+  },
+  addCommentButton: {
+    transform: `translateX(${theme.spacing(2) - 4}px)`,
+  },
 }));
 
 const Post = () => {
@@ -59,6 +75,8 @@ const Post = () => {
   const [expanded, setExpanded] = useState(false);
 
   const onExpand = event => setExpanded(!expanded);
+
+  const onAddComment = event => console.log('comment');
 
   return (
     <Card className={classNames.card}>
@@ -69,8 +87,8 @@ const Post = () => {
           </Avatar>
         }
         action={
-          <IconButton aria-label="share">
-            <ShareIcon />
+          <IconButton aria-label="open menu">
+            <MoreVertIcon />
           </IconButton>
         }
         title="Adrian Dinca"
@@ -101,10 +119,12 @@ const Post = () => {
           32 likes
         </Typography>
 
-        <IconButton
+        <IconButton aria-label="share" className={classNames.shareButton}>
+          <ShareIcon />
+        </IconButton>
+        {/* <IconButton
           onClick={onExpand}
           aria-expanded={expanded}
-          className={classNames.expandButton}
           aria-label={expanded ? 'show less' : 'show more'}
         >
           <ExpandMoreIcon
@@ -112,7 +132,34 @@ const Post = () => {
               [classNames.expandMoreIconOn]: expanded,
             })}
           />
-        </IconButton>
+        </IconButton> */}
+      </CardActions>
+
+      <CardActions className={classNames.cardActions}>
+        <div className={classNames.commentInputContainer}>
+          <Avatar aria-label="Adrian Dinca" className={classNames.avatar}>
+            AD
+          </Avatar>
+
+          <TextField
+            label="Comment"
+            variant="outlined"
+            className={classNames.commentInput}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={onAddComment}
+                    className={classNames.addCommentButton}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
