@@ -109,6 +109,8 @@ const useStyles = makeStyles(theme => ({
   },
   comments: {
     padding: theme.spacing(0, 3),
+    overflowY: 'auto',
+    maxHeight: '6vh',
   },
 }));
 
