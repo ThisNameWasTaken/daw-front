@@ -6,9 +6,9 @@ import Post from '../components/post';
 const Index = () => (
   <>
     <Container>
-      <Post />
-      <Post />
-      <Post />
+      {/* <Post /> */}
+      {/* <Post /> */}
+      {/* <Post /> */}
     </Container>
   </>
 );

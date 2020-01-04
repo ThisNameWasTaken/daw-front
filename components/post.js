@@ -24,8 +24,50 @@ const useStyles = makeStyles(theme => ({
     marginBottom: theme.spacing(1),
   },
   media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
+    position: 'relative',
+
+    display: 'flex',
+    flexFlow: 'column nowrap',
+
+    width: '100%',
+    paddingTop: '100%',
+    '& > div': {
+      position: 'absolute',
+
+      display: 'flex',
+      flex: 'none',
+      flexFlow: 'row nowrap',
+
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+
+      overflowX: 'auto',
+      overflowY: 'hidden',
+
+      scrollSnapType: 'x mandatory',
+      '& > div': {
+        position: 'relative',
+
+        flex: 'none',
+        flexFlow: 'row nowrap',
+
+        width: '100%',
+        height: '100%',
+
+        scrollSnapAlign: 'center',
+
+        '& > img': {
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: '100%',
+          height: 'auto',
+        },
+      },
+    },
   },
   shareButton: {
     marginLeft: 'auto',
@@ -65,9 +107,12 @@ const useStyles = makeStyles(theme => ({
   addCommentButton: {
     transform: `translateX(${theme.spacing(2) - 4}px)`,
   },
+  comments: {
+    padding: theme.spacing(0, 3),
+  },
 }));
 
-const Post = () => {
+const Post = ({ photos, comments, likes, date, author }) => {
   const classNames = useStyles({});
 
   const onAddComment = event => console.log('comment');
@@ -76,36 +121,31 @@ const Post = () => {
     <Card className={classNames.card}>
       <CardHeader
         avatar={
-          <Avatar aria-label="Adrian Dinca" className={classNames.avatar}>
-            AD
-          </Avatar>
+          <Avatar alt={author.profilePhoto.alt} src={author.profilePhoto.src} />
         }
         action={
           <IconButton aria-label="open menu">
             <MoreVertIcon />
           </IconButton>
         }
-        title="Adrian Dinca"
-        subheader="Dec 26, 2019"
+        title={author.username}
+        subheader={date}
       />
-      <CardMedia
-        className={classNames.media}
-        image="https://images.pexels.com/photos/3336152/pexels-photo-3336152.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
-        title="Cabs on a London street"
-      />
-      <CardContent>
-        <Typography variant="body2" color="textSecondary" component="p">
-          This impressive paella is a perfect party dish and a fun meal to cook
-          together with your guests.Add 1 cup of frozen peas along with the
-          mussels, if you like.
-        </Typography>
-      </CardContent>
+      <div className={classNames.media}>
+        <div>
+          {photos.map(({ src, alt }) => (
+            <div key={src}>
+              <img src={src} alt={alt} />
+            </div>
+          ))}
+        </div>
+      </div>
       <CardActions className={classNames.cardActions} disableSpacing>
         <IconButton aria-label="add to favorites">
           <FavoriteIcon />
         </IconButton>
         <Typography variant="body2" component="p">
-          32 likes
+          {likes} likes
         </Typography>
 
         <IconButton aria-label="share" className={classNames.shareButton}>
@@ -113,11 +153,22 @@ const Post = () => {
         </IconButton>
       </CardActions>
 
+      <div className={classNames.comments}>
+        {comments.map(({ id, comment, user }) => (
+          <Typography
+            key={id}
+            variant="body2"
+            color="textSecondary"
+            component="p"
+          >
+            {comment}
+          </Typography>
+        ))}
+      </div>
+
       <CardActions className={classNames.cardActions}>
         <div className={classNames.commentInputContainer}>
-          <Avatar aria-label="Adrian Dinca" className={classNames.avatar}>
-            AD
-          </Avatar>
+          <Avatar alt={author.profilePhoto.alt} src={author.profilePhoto.src} />
 
           <TextField
             label="Comment"
