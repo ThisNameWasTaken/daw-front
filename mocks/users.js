@@ -16,4 +16,21 @@ export const usersData = {
       'Lorem ipsum dolor sit, amet consectetur adipisicing elit. A blanditiis voluptates ratione dolorum perspiciatis eum tenetur.',
     posts: ['rd32Gf2L', 'K34jdF9r', 'a4Te0ik34', 'Bn23fG345'],
   },
+  H46tFd5: {
+    profilePhoto: {
+      src:
+        'https://images.pexels.com/photos/864994/pexels-photo-864994.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260',
+      alt: 'profile photo',
+    },
+    coverPhoto: {
+      src:
+        'https://images.pexels.com/photos/3354641/pexels-photo-3354641.jpeg?auto=compress&cs=tinysrgb&h=750&w=1260',
+      alt: 'cover photo',
+    },
+    name: 'John Doe',
+    username: 'John Doe',
+    description:
+      'Lorem ipsum dolor sit, amet consectetur adipisicing elit. A blanditiis voluptates ratione dolorum perspiciatis eum tenetur.',
+    posts: ['rd32Gf2L', 'K34jdF9r', 'a4Te0ik34', 'Bn23fG345'],
+  },
 };
