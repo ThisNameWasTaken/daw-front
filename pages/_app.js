@@ -23,7 +23,12 @@ export default class MyApp extends App {
 
   state = {
     userData: {
-      id: null,
+      id: 'e2H4aD3j1',
+      profilePhoto: {
+        src:
+          'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
+        alt: 'profile photo',
+      },
     },
     setUserData: this.setUserData,
   };

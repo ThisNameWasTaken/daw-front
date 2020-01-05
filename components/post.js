@@ -123,11 +123,11 @@ const Post = ({ photos, comments, likes, date, author }) => {
 
   const router = useRouter();
 
-  const loggedInUser = useContext(UserContext);
+  const { userData, setUserData } = useContext(UserContext);
 
-  useEffect(() => {
-    loggedInUser.setUserData({ id: 'lorem' });
-  }, []);
+  // useEffect(() => {
+  //   loggedInUser.setUserData({ id: 'lorem' });
+  // }, []);
 
   const onAddComment = event => console.log('comment');
 
@@ -190,8 +190,8 @@ const Post = ({ photos, comments, likes, date, author }) => {
         <CardActions className={classNames.cardActions}>
           <div className={classNames.commentInputContainer}>
             <Avatar
-              alt={author.profilePhoto.alt}
-              src={author.profilePhoto.src}
+              alt={userData.profilePhoto.alt}
+              src={userData.profilePhoto.src}
             />
 
             <TextField
