@@ -49,11 +49,6 @@ export const postsData = {
         id: 'W4f3aFS',
         user: {
           id: '',
-          name: '',
-          photo: {
-            src: '',
-            alt: '',
-          },
         },
         comment: 'Cool pic',
       },
