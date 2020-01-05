@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from '../components/theme';
 import Layout from '../layouts/layout';
+import { UserContext } from '../services/user';
 
 export default class MyApp extends App {
   componentDidMount() {
@@ -15,6 +16,17 @@ export default class MyApp extends App {
       jssStyles.parentElement.removeChild(jssStyles);
     }
   }
+
+  setUserData = userData => {
+    this.setState({ userData });
+  };
+
+  state = {
+    userData: {
+      id: null,
+    },
+    setUserData: this.setUserData,
+  };
 
   render() {
     const { Component, pageProps } = this.props;
@@ -27,9 +39,11 @@ export default class MyApp extends App {
         <ThemeProvider theme={theme}>
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
           <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <UserContext.Provider value={this.state}>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </UserContext.Provider>
         </ThemeProvider>
       </>
     );

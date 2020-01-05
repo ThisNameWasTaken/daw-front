@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Link from 'next/link';
 import {
   Card,
@@ -9,7 +9,7 @@ import {
   makeStyles,
   Grid,
 } from '@material-ui/core';
-import { getUserData } from '../services/user';
+import { getUserData, UserContext } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -63,6 +63,10 @@ const useStyles = makeStyles(theme => ({
 
 const Profile = ({ userData }) => {
   const classNames = useStyles({});
+
+  const loggedInUser = useContext(UserContext);
+
+  console.log(loggedInUser);
 
   return (
     <Container className={classNames.container}>

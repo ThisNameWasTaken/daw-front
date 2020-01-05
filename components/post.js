@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import {
   Card,
   CardHeader,
@@ -11,11 +12,14 @@ import {
   InputAdornment,
 } from '@material-ui/core';
 import {
+  ArrowBack as ArrowBackIcon,
   Send as SendIcon,
   MoreVert as MoreVertIcon,
   Favorite as FavoriteIcon,
   Share as ShareIcon,
 } from '@material-ui/icons';
+import { useContext } from 'react';
+import { UserContext } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   rootContainer: {
@@ -117,10 +121,21 @@ const useStyles = makeStyles(theme => ({
 const Post = ({ photos, comments, likes, date, author }) => {
   const classNames = useStyles({});
 
+  const router = useRouter();
+
+  const loggedInUser = useContext(UserContext);
+
+  useEffect(() => {
+    loggedInUser.setUserData({ id: 'lorem' });
+  }, []);
+
   const onAddComment = event => console.log('comment');
 
   return (
     <div className={classNames.rootContainer}>
+      <IconButton aria-label="Go Back" onClick={router.back}>
+        <ArrowBackIcon />
+      </IconButton>
       <Card className={classNames.card}>
         <CardHeader
           avatar={
@@ -203,5 +218,7 @@ const Post = ({ photos, comments, likes, date, author }) => {
     </div>
   );
 };
+
+Post.getInitialProps = () => {};
 
 export default Post;

@@ -1,3 +1,5 @@
+import { createContext } from 'react';
+
 import { usersData } from '../mocks/users';
 import { postsData } from '../mocks/posts';
 
@@ -15,3 +17,8 @@ export const getUserData = userId => {
 
   return Promise.resolve(userData);
 };
+
+export const UserContext = createContext({
+  userData: { id: null },
+  setUserData: () => {},
+});
