@@ -4,8 +4,6 @@ import {
   CardHeader,
   Avatar,
   IconButton,
-  CardMedia,
-  CardContent,
   CardActions,
   Typography,
   makeStyles,
@@ -20,6 +18,10 @@ import {
 } from '@material-ui/icons';
 
 const useStyles = makeStyles(theme => ({
+  rootContainer: {
+    margin: 'auto',
+    maxWidth: 690,
+  },
   card: {
     marginBottom: theme.spacing(1),
   },
@@ -109,8 +111,6 @@ const useStyles = makeStyles(theme => ({
   },
   comments: {
     padding: theme.spacing(0, 3),
-    overflowY: 'auto',
-    maxHeight: '6vh',
   },
 }));
 
@@ -120,79 +120,87 @@ const Post = ({ photos, comments, likes, date, author }) => {
   const onAddComment = event => console.log('comment');
 
   return (
-    <Card className={classNames.card}>
-      <CardHeader
-        avatar={
-          <Avatar alt={author.profilePhoto.alt} src={author.profilePhoto.src} />
-        }
-        action={
-          <IconButton aria-label="open menu">
-            <MoreVertIcon />
+    <div className={classNames.rootContainer}>
+      <Card className={classNames.card}>
+        <CardHeader
+          avatar={
+            <Avatar
+              alt={author.profilePhoto.alt}
+              src={author.profilePhoto.src}
+            />
+          }
+          action={
+            <IconButton aria-label="open menu">
+              <MoreVertIcon />
+            </IconButton>
+          }
+          title={author.username}
+          subheader={date}
+        />
+        <div className={classNames.media}>
+          <div>
+            {photos.map(({ src, alt }) => (
+              <div key={src}>
+                <img src={src} alt={alt} />
+              </div>
+            ))}
+          </div>
+        </div>
+        <CardActions className={classNames.cardActions} disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
           </IconButton>
-        }
-        title={author.username}
-        subheader={date}
-      />
-      <div className={classNames.media}>
-        <div>
-          {photos.map(({ src, alt }) => (
-            <div key={src}>
-              <img src={src} alt={alt} />
-            </div>
+          <Typography variant="body2" component="p">
+            {likes} likes
+          </Typography>
+
+          <IconButton aria-label="share" className={classNames.shareButton}>
+            <ShareIcon />
+          </IconButton>
+        </CardActions>
+
+        <div className={classNames.comments}>
+          {comments.map(({ id, comment, user }) => (
+            <Typography
+              key={id}
+              variant="body2"
+              color="textSecondary"
+              component="p"
+            >
+              {comment}
+            </Typography>
           ))}
         </div>
-      </div>
-      <CardActions className={classNames.cardActions} disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <Typography variant="body2" component="p">
-          {likes} likes
-        </Typography>
 
-        <IconButton aria-label="share" className={classNames.shareButton}>
-          <ShareIcon />
-        </IconButton>
-      </CardActions>
+        <CardActions className={classNames.cardActions}>
+          <div className={classNames.commentInputContainer}>
+            <Avatar
+              alt={author.profilePhoto.alt}
+              src={author.profilePhoto.src}
+            />
 
-      <div className={classNames.comments}>
-        {comments.map(({ id, comment, user }) => (
-          <Typography
-            key={id}
-            variant="body2"
-            color="textSecondary"
-            component="p"
-          >
-            {comment}
-          </Typography>
-        ))}
-      </div>
-
-      <CardActions className={classNames.cardActions}>
-        <div className={classNames.commentInputContainer}>
-          <Avatar alt={author.profilePhoto.alt} src={author.profilePhoto.src} />
-
-          <TextField
-            label="Comment"
-            variant="outlined"
-            className={classNames.commentInput}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={onAddComment}
-                    className={classNames.addCommentButton}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-        </div>
-      </CardActions>
-    </Card>
+            <TextField
+              label="Comment"
+              variant="outlined"
+              className={classNames.commentInput}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={onAddComment}
+                      className={classNames.addCommentButton}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
+        </CardActions>
+      </Card>
+    </div>
   );
 };
 
