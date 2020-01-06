@@ -7,6 +7,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     marginRight: 'auto',
     margin: theme.spacing(1, 0),
+    alignItems: 'center',
   },
   rightAligned: {
     marginRight: 'none',
