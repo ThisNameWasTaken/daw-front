@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
 import {
+  Avatar,
   Card,
   CardContent,
   CardMedia,
@@ -81,14 +82,11 @@ const Profile = ({ userData }) => {
           title={userData?.coverPhoto.alt}
         />
         <CardContent className={classNames.cardContent}>
-          <Card className={classNames.profilePhoto}>
-            <CardMedia
-              component="img"
-              alt={userData?.profilePhoto.alt}
-              image={userData?.profilePhoto.src}
-              title={userData?.profilePhoto.alt}
-            />
-          </Card>
+          <Avatar
+            alt={userData?.profilePhoto.alt}
+            src={userData?.profilePhoto.src}
+            className={classNames.profilePhoto}
+          />
 
           <Typography gutterBottom variant="h5" component="h2" align="center">
             {userData?.name}
