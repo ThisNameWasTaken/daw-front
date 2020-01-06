@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 import theme from '../components/theme';
 import Layout from '../layouts/layout';
-import { UserContext } from '../services/user';
+import { UserContext, getUserData } from '../services/user';
 
 export default class MyApp extends App {
   componentDidMount() {
@@ -22,16 +22,13 @@ export default class MyApp extends App {
   };
 
   state = {
-    userData: {
-      id: 'e2H4aD3j1',
-      profilePhoto: {
-        src:
-          'https://images.pexels.com/photos/775358/pexels-photo-775358.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500',
-        alt: 'profile photo',
-      },
-    },
+    userData: null,
     setUserData: this.setUserData,
   };
+
+  async componentWillMount() {
+    this.setState({ userData: await getUserData('e2H4aD3j1') });
+  }
 
   render() {
     const { Component, pageProps } = this.props;

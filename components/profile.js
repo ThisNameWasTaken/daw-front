@@ -1,0 +1,141 @@
+import React, { useContext } from 'react';
+import Link from 'next/link';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Container,
+  Typography,
+  makeStyles,
+  Grid,
+} from '@material-ui/core';
+import { getUserData, UserContext } from '../services/user';
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    padding: 0,
+  },
+  cardContent: {
+    position: 'relative',
+    padding: 0,
+    paddingTop: 'calc(10vh + 16px)',
+  },
+  cardMedia: {
+    height: '40vh',
+  },
+  profilePhoto: {
+    width: '20vh',
+    height: '20vh',
+    borderRadius: '50%',
+    position: 'absolute',
+    top: 0,
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  },
+  profileDescription: {
+    maxWidth: 300,
+    margin: 'auto',
+    display: 'block',
+    marginBottom: theme.spacing(6),
+  },
+  photoGalleryContainer: {
+    padding: 0,
+  },
+  photoGalleryGrid: {
+    position: 'relative',
+  },
+  photoGalleryGridItem: {
+    paddingTop: '35%',
+    position: 'relative',
+    overflow: 'hidden',
+    border: '2px solid transparent',
+    '& > a > img': {
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%, -50%)',
+      display: 'block',
+      maxWidth: '100%',
+      cursor: 'pointer',
+    },
+  },
+}));
+
+const Profile = ({ userData }) => {
+  const classNames = useStyles({});
+
+  const loggedInUser = useContext(UserContext);
+
+  if (!userData) {
+    userData = loggedInUser.userData;
+  }
+
+  return (
+    <Container className={classNames.container}>
+      <Card>
+        <CardMedia
+          component="img"
+          alt={userData?.coverPhoto.alt}
+          className={classNames.cardMedia}
+          image={userData?.coverPhoto.src}
+          title={userData?.coverPhoto.alt}
+        />
+        <CardContent className={classNames.cardContent}>
+          <Card className={classNames.profilePhoto}>
+            <CardMedia
+              component="img"
+              alt={userData?.profilePhoto.alt}
+              image={userData?.profilePhoto.src}
+              title={userData?.profilePhoto.alt}
+            />
+          </Card>
+
+          <Typography gutterBottom variant="h5" component="h2" align="center">
+            {userData?.name}
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="textSecondary"
+            className={classNames.profileDescription}
+            component="p"
+            align="center"
+          >
+            {userData?.description}
+          </Typography>
+
+          <Container maxWidth="md" className={classNames.photoGalleryContainer}>
+            <Grid container className={classNames.photoGalleryGrid}>
+              {userData?.posts.map(post => (
+                <Grid
+                  item
+                  className={classNames.photoGalleryGridItem}
+                  xs={4}
+                  key={post.photos[0].src}
+                >
+                  <Link href="/post/[id]" as={`/post/${post.id}`}>
+                    <a>
+                      <img src={post.photos[0].src} alt={post.photos[0].alt} />
+                    </a>
+                  </Link>
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </CardContent>
+      </Card>
+    </Container>
+  );
+};
+
+Profile.getInitialProps = async context => {
+  const { id } = context.query;
+
+  const userData = await getUserData(id);
+
+  return {
+    userData,
+  };
+};
+
+export default Profile;
