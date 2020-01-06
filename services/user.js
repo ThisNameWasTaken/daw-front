@@ -4,6 +4,8 @@ import { usersData } from '../mocks/users';
 import { postsData } from '../mocks/posts';
 
 export const getUserData = userId => {
+  if (!usersData[userId]) return null;
+
   const userData = JSON.parse(JSON.stringify(usersData[userId]));
 
   userData.posts = [];

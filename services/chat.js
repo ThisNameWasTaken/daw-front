@@ -2,6 +2,8 @@ import { chatsData } from '../mocks/chats';
 import { usersData } from '../mocks/users';
 
 export const getChatData = chatId => {
+  if (!chatsData[chatId]) return null;
+
   const chatData = JSON.parse(JSON.stringify(chatsData[chatId]));
 
   const uniqueIds = chatData.messages.reduce(
