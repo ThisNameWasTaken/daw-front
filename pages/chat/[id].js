@@ -45,23 +45,26 @@ const useStyles = makeStyles(theme => ({
 const Chat = ({ messages, avatars }) => {
   const classNames = useStyles({});
 
-  const { userData } = useContext(UserContext);
+  const userContext = useContext(UserContext);
 
   return (
     <>
       <BackButton />
       <div className={classNames.root}>
-        {messages.map(({ date, text, senderId }) => (
-          <Message
-            key={date}
-            avatar={
-              <Avatar src={avatars[senderId].src} alt={avatars[senderId].alt} />
-            }
-            text={text}
-            align={senderId === userData.id ? 'right' : 'left'}
-          />
-        ))}
-
+        {userContext.userData &&
+          messages.map(({ date, text, senderId }) => (
+            <Message
+              key={date}
+              avatar={
+                <Avatar
+                  src={avatars[senderId].src}
+                  alt={avatars[senderId].alt}
+                />
+              }
+              text={text}
+              align={senderId === userContext.userData.id ? 'right' : 'left'}
+            />
+          ))}
         <div className={classNames.chatInput}>
           <div>
             <TextField
