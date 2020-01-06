@@ -16,19 +16,28 @@ const useStyles = makeStyles(theme => ({
     maxWidth: 690,
     margin: 'auto',
     position: 'relative',
+    paddingBottom: 88,
   },
   chatInput: {
     position: 'fixed',
-    bottom: theme.spacing(3),
+    bottom: 0,
+    left: 0,
     width: '100%',
-    display: 'flex',
-    alignItems: 'center',
+
+    '& > div': {
+      display: 'flex',
+      alignItems: 'center',
+      maxWidth: 690,
+      margin: 'auto',
+      padding: theme.spacing(3, 2, 2, 2),
+      background: `linear-gradient(transparent, ${theme.palette.background.default} 23%)`,
+    },
   },
   chatAvatar: {
     marginRight: theme.spacing(1),
   },
   chatTextField: {
-    // maxWidth: '100%',
+    width: '100%',
   },
 }));
 
@@ -51,32 +60,28 @@ const Chat = ({ messages, avatars }) => {
       ))}
 
       <div className={classNames.chatInput}>
-        <Avatar
-          className={classNames.chatAvatar}
-          alt={userData.profilePhoto.alt}
-          src={userData.profilePhoto.src}
-        />
-
-        <TextField
-          label="Comment"
-          variant="outlined"
-          className={classNames.chatTextField}
-          InputProps={{
-            endAdornment: (
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={() => {
-                    console.log('comment');
-                  }}
-                  className={''}
-                >
-                  <SendIcon />
-                </IconButton>
-              </InputAdornment>
-            ),
-          }}
-        />
+        <div>
+          <TextField
+            label="Reply"
+            variant="outlined"
+            className={classNames.chatTextField}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => {
+                      console.log('comment');
+                    }}
+                    className={''}
+                  >
+                    <SendIcon />
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+        </div>
       </div>
     </div>
   );
