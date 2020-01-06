@@ -41,6 +41,7 @@ const Chat = ({ messages, avatars }) => {
     <div className={classNames.root}>
       {messages.map(({ date, text, senderId }) => (
         <Message
+          key={date}
           avatar={
             <Avatar src={avatars[senderId].src} alt={avatars[senderId].alt} />
           }
@@ -57,14 +58,14 @@ const Chat = ({ messages, avatars }) => {
         />
 
         <TextField
-          label='Comment'
-          variant='outlined'
+          label="Comment"
+          variant="outlined"
           className={classNames.chatTextField}
           InputProps={{
             endAdornment: (
-              <InputAdornment position='end'>
+              <InputAdornment position="end">
                 <IconButton
-                  aria-label='toggle password visibility'
+                  aria-label="toggle password visibility"
                   onClick={() => {
                     console.log('comment');
                   }}
