@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import { useRouter } from 'next/router';
+import React from 'react';
 import {
   Card,
   CardHeader,
@@ -121,8 +120,6 @@ const useStyles = makeStyles(theme => ({
 const Post = ({ photos, comments, likes, date, author }) => {
   const classNames = useStyles({});
 
-  const router = useRouter();
-
   const { userData, setUserData } = useContext(UserContext);
 
   // useEffect(() => {
@@ -133,9 +130,6 @@ const Post = ({ photos, comments, likes, date, author }) => {
 
   return (
     <div className={classNames.rootContainer}>
-      <IconButton aria-label="Go Back" onClick={router.back}>
-        <ArrowBackIcon />
-      </IconButton>
       <Card className={classNames.card}>
         <CardHeader
           avatar={

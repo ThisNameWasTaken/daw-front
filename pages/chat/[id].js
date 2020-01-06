@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import { Send as SendIcon } from '@material-ui/icons';
 import { UserContext } from '../../services/user';
+import BackButton from '../../components/back-button';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -47,43 +48,46 @@ const Chat = ({ messages, avatars }) => {
   const { userData } = useContext(UserContext);
 
   return (
-    <div className={classNames.root}>
-      {messages.map(({ date, text, senderId }) => (
-        <Message
-          key={date}
-          avatar={
-            <Avatar src={avatars[senderId].src} alt={avatars[senderId].alt} />
-          }
-          text={text}
-          align={senderId === userData.id ? 'right' : 'left'}
-        />
-      ))}
-
-      <div className={classNames.chatInput}>
-        <div>
-          <TextField
-            label="Reply"
-            variant="outlined"
-            className={classNames.chatTextField}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => {
-                      console.log('comment');
-                    }}
-                    className={''}
-                  >
-                    <SendIcon />
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
+    <>
+      <BackButton />
+      <div className={classNames.root}>
+        {messages.map(({ date, text, senderId }) => (
+          <Message
+            key={date}
+            avatar={
+              <Avatar src={avatars[senderId].src} alt={avatars[senderId].alt} />
+            }
+            text={text}
+            align={senderId === userData.id ? 'right' : 'left'}
           />
+        ))}
+
+        <div className={classNames.chatInput}>
+          <div>
+            <TextField
+              label="Reply"
+              variant="outlined"
+              className={classNames.chatTextField}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={() => {
+                        console.log('comment');
+                      }}
+                      className={''}
+                    >
+                      <SendIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+            />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
