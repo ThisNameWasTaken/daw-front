@@ -1,19 +1,83 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { getChatData } from '../../services/chat';
-import { Card, CardContent, Typography } from '@material-ui/core';
+import Message from '../../components/message';
+import {
+  Avatar,
+  makeStyles,
+  TextField,
+  InputAdornment,
+  IconButton,
+} from '@material-ui/core';
+import { Send as SendIcon } from '@material-ui/icons';
+import { UserContext } from '../../services/user';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    maxWidth: 690,
+    margin: 'auto',
+    position: 'relative',
+  },
+  chatInput: {
+    position: 'fixed',
+    bottom: theme.spacing(3),
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+  },
+  chatAvatar: {
+    marginRight: theme.spacing(1),
+  },
+  chatTextField: {
+    // maxWidth: '100%',
+  },
+}));
 
 const Chat = ({ messages, avatars }) => {
+  const classNames = useStyles({});
+
+  const { userData } = useContext(UserContext);
+
   return (
-    <>
-      {messages.map(message => (
-        <Card key={message.date}>
-          <CardContent>
-            <Typography gutterBottom>{message.text}</Typography>
-          </CardContent>
-        </Card>
+    <div className={classNames.root}>
+      {messages.map(({ date, text, senderId }) => (
+        <Message
+          avatar={
+            <Avatar src={avatars[senderId].src} alt={avatars[senderId].alt} />
+          }
+          text={text}
+          align={senderId === userData.id ? 'right' : 'left'}
+        />
       ))}
-      <p></p>
-    </>
+
+      <div className={classNames.chatInput}>
+        <Avatar
+          className={classNames.chatAvatar}
+          alt={userData.profilePhoto.alt}
+          src={userData.profilePhoto.src}
+        />
+
+        <TextField
+          label='Comment'
+          variant='outlined'
+          className={classNames.chatTextField}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton
+                  aria-label='toggle password visibility'
+                  onClick={() => {
+                    console.log('comment');
+                  }}
+                  className={''}
+                >
+                  <SendIcon />
+                </IconButton>
+              </InputAdornment>
+            ),
+          }}
+        />
+      </div>
+    </div>
   );
 };
 
