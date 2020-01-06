@@ -6,11 +6,24 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
     marginRight: 'auto',
+    margin: theme.spacing(1, 0),
   },
   rightAligned: {
     marginRight: 'none',
     marginLeft: 'auto',
     flexDirection: 'row-reverse',
+  },
+  chatBubble: {
+    padding: theme.spacing(1.5, 2),
+    // margin: theme.spacing(1, 0),
+    borderRadius: '1.5rem',
+    background: theme.palette.secondary.dark,
+  },
+  self: {
+    background: theme.palette.background.paper,
+  },
+  avatar: {
+    margin: theme.spacing(0, 1),
   },
 }));
 
@@ -23,9 +36,13 @@ const Message = ({ text, avatar, align = 'left' }) => {
         [classNames.rightAligned]: align === 'right',
       })}
     >
-      {avatar}
-      <Card>
-        <Typography gutterBottom>{text}</Typography>
+      <div className={classNames.avatar}>{avatar}</div>
+      <Card
+        className={clsx(classNames.chatBubble, {
+          [classNames.self]: align === 'right',
+        })}
+      >
+        <Typography>{text}</Typography>
       </Card>
     </div>
   );
