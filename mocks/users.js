@@ -15,6 +15,7 @@ export const usersData = {
     description:
       'Lorem ipsum dolor sit, amet consectetur adipisicing elit. A blanditiis voluptates ratione dolorum perspiciatis eum tenetur.',
     posts: ['rd32Gf2L', 'K34jdF9r', 'a4Te0ik34', 'Bn23fG345'],
+    chats: ['erijtogfr'],
   },
   H46tFd5: {
     profilePhoto: {
@@ -32,5 +33,6 @@ export const usersData = {
     description:
       'Lorem ipsum dolor sit, amet consectetur adipisicing elit. A blanditiis voluptates ratione dolorum perspiciatis eum tenetur.',
     posts: ['rd32Gf2L', 'K34jdF9r', 'a4Te0ik34', 'Bn23fG345'],
+    chats: ['erijtogfr'],
   },
 };
