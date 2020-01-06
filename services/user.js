@@ -8,6 +8,8 @@ export const getUserData = userId => {
 
   const userData = JSON.parse(JSON.stringify(usersData[userId]));
 
+  userData.id = userId;
+
   userData.posts = [];
 
   usersData[userId].posts.forEach(postID => {
