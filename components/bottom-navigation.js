@@ -18,6 +18,7 @@ const useStyles = makeStyles({
     bottom: 0,
     width: '100%',
     transition: 'transform 270ms ease',
+    zIndex: 9,
   },
 });
 
