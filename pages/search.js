@@ -1,4 +1,5 @@
 import React from 'react';
+import withPrivateRoute from '../components/private-route';
 
 const Search = () => (
   <>
@@ -6,4 +7,4 @@ const Search = () => (
   </>
 );
 
-export default Search;
+export default withPrivateRoute(Search);

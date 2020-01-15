@@ -1,4 +1,5 @@
 import React from 'react';
+import withPrivateRoute from '../components/private-route';
 
 const Upload = () => (
   <>
@@ -6,4 +7,4 @@ const Upload = () => (
   </>
 );
 
-export default Upload;
+export default withPrivateRoute(Upload);

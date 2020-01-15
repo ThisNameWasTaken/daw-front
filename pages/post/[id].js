@@ -4,6 +4,7 @@ import PostComponent from '../../components/post';
 
 import { getPostData } from '../../services/post';
 import BackButton from '../../components/back-button';
+import withPrivateRoute from '../../components/private-route';
 
 const Post = ({ post }) => (
   <>
@@ -20,4 +21,4 @@ Post.getInitialProps = async context => {
   return { post };
 };
 
-export default Post;
+export default withPrivateRoute(Post);

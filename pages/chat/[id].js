@@ -11,6 +11,7 @@ import {
 import { Send as SendIcon } from '@material-ui/icons';
 import { UserContext } from '../../services/user';
 import BackButton from '../../components/back-button';
+import withPrivateRoute from '../../components/private-route';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -102,4 +103,4 @@ Chat.getInitialProps = async context => {
   return { messages, avatars };
 };
 
-export default Chat;
+export default withPrivateRoute(Chat);
