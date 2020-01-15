@@ -1,7 +1,7 @@
 export const postsData = {
   rd32Gf2L: {
     author: {
-      id: 'e2H4aD3j1',
+      id: 'H46tFd5',
     },
     date: new Date('December 17, 2019 10:24:17'),
     photos: [
@@ -97,7 +97,7 @@ export const postsData = {
   },
   Bn23fG345: {
     author: {
-      id: 'e2H4aD3j1',
+      id: 'H46tFd5',
     },
     date: new Date('December 31, 2019 10:24:17'),
     photos: [
