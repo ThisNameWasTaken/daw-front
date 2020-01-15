@@ -12,7 +12,7 @@ const Index = props => {
     <>
       <Container>
         {posts.map(post => (
-          <Post {...post} />
+          <Post key={post.id} {...post} />
         ))}
       </Container>
     </>
