@@ -134,10 +134,14 @@ const Post = ({ photos, comments, likes, date, author, id }) => {
       <Card className={classNames.card}>
         <CardHeader
           avatar={
-            <Avatar
-              alt={author.profilePhoto.alt}
-              src={author.profilePhoto.src}
-            />
+            <Link href="/profile/[id]" as={`/profile/${author.id}`}>
+              <a>
+                <Avatar
+                  alt={author.profilePhoto.alt}
+                  src={author.profilePhoto.src}
+                />
+              </a>
+            </Link>
           }
           action={
             <IconButton aria-label="open menu">
@@ -147,6 +151,7 @@ const Post = ({ photos, comments, likes, date, author, id }) => {
           title={author.username}
           subheader={date}
         />
+
         <Link href="/post/[id]" as={`/post/${id}`}>
           <a>
             <div className={classNames.media}>
