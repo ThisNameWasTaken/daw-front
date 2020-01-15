@@ -41,13 +41,9 @@ const ChatList = ({ chatList }) => {
 };
 
 ChatList.getInitialProps = async (context, { token }) => {
-  console.log(token);
-  console.log(jwtDecode(token));
+  const { id } = jwtDecode(token);
 
-  // TODO: Get this from the Private Route HOC
-  const chatList = await getChatList('e2H4aD3j1');
-
-  console.log(chatList);
+  const chatList = await getChatList(id);
 
   return { chatList };
 };
