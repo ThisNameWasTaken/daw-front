@@ -9,8 +9,11 @@ import {
   Typography,
   makeStyles,
   Grid,
+  Button,
 } from '@material-ui/core';
 import { getUserData, UserContext } from '../services/user';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -60,6 +63,9 @@ const useStyles = makeStyles(theme => ({
       cursor: 'pointer',
     },
   },
+  logOutButton: {
+    marginTop: theme.spacing(5),
+  },
 }));
 
 const Profile = ({ userData }) => {
@@ -67,9 +73,19 @@ const Profile = ({ userData }) => {
 
   const loggedInUser = useContext(UserContext);
 
+  const router = useRouter();
+
+  const shouldDisplayLogOut = !userData;
+
   if (!userData) {
     userData = loggedInUser.userData;
   }
+
+  const logOut = () => {
+    Cookies.remove('token');
+
+    router.push('/login');
+  };
 
   return (
     <Container className={classNames.container}>
@@ -100,6 +116,15 @@ const Profile = ({ userData }) => {
             align="center"
           >
             {userData?.description}
+            {shouldDisplayLogOut && (
+              <Button
+                className={classNames.logOutButton}
+                variant="contained"
+                onClick={logOut}
+              >
+                Log Out
+              </Button>
+            )}
           </Typography>
 
           <Container maxWidth="md" className={classNames.photoGalleryContainer}>

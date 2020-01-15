@@ -25,4 +25,5 @@ export const getUserData = userId => {
 export const UserContext = createContext({
   userData: { id: null, profilePhoto: { src: null, alt: null } },
   setUserData: () => {},
+  logInUser: () => {},
 });

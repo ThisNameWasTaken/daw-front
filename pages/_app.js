@@ -26,13 +26,21 @@ export default class MyApp extends App {
   state = {
     userData: null,
     setUserData: this.setUserData,
+    logInUser: this.logInUser.bind(this),
   };
 
-  async componentWillMount() {
+  async logInUser() {
     const token = Cookies.get('token');
+
+    if (!token) return;
+
     const { id } = jwtDecode(token);
 
     this.setState({ userData: await getUserData(id) });
+  }
+
+  async componentWillMount() {
+    await this.logInUser();
   }
 
   render() {

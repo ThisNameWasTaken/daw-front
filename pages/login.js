@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useForm from 'react-hook-form';
 import { Button, Grid, Paper, TextField, makeStyles } from '@material-ui/core';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/router';
 
 import ButtonLink from '../components/button-link';
+import { UserContext } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,7 +30,9 @@ const Login = () => {
 
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = async data => {
+  const { logInUser } = useContext(UserContext);
+
+  const logIn = async data => {
     try {
       const response = await fetch('http://localhost:3001/api/login');
 
@@ -38,7 +41,7 @@ const Login = () => {
       const { token } = await response.json();
 
       Cookies.set('token', token);
-
+      await logInUser();
       router.push('/');
     } catch (err) {
       console.error(err);
@@ -49,7 +52,7 @@ const Login = () => {
     <Grid container>
       <Grid item xs={12}>
         <Paper className={classNames.paper}>
-          <form onSubmit={handleSubmit(onSubmit)} autoComplete="on">
+          <form onSubmit={handleSubmit(logIn)} autoComplete="on">
             <TextField
               label="Username"
               name="username"
