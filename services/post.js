@@ -16,3 +16,9 @@ export const getPostData = postId => {
 
   return Promise.resolve(postData);
 };
+
+export const getAllPosts = async () => {
+  return Promise.resolve(
+    await Promise.all(Object.keys(postsData).map(id => getPostData(id)))
+  );
+};

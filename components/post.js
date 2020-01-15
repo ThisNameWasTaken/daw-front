@@ -184,8 +184,8 @@ const Post = ({ photos, comments, likes, date, author }) => {
         <CardActions className={classNames.cardActions}>
           <div className={classNames.commentInputContainer}>
             <Avatar
-              alt={userData.profilePhoto.alt}
-              src={userData.profilePhoto.src}
+              alt={userData?.profilePhoto.alt}
+              src={userData?.profilePhoto.src}
             />
 
             <TextField
