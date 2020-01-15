@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { handleAuthSsr } from '../services/auth';
-import Cookies from 'js-cookie';
 
 export default function withPrivateRoute(WrappedComponent) {
   return class extends Component {
