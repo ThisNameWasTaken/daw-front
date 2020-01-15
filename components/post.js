@@ -118,7 +118,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Post = ({ photos, comments, likes, date, author, id }) => {
+const Post = ({ photos, comments, likes, dateString, author, id }) => {
   const classNames = useStyles({});
 
   const { userData, setUserData } = useContext(UserContext);
@@ -148,8 +148,8 @@ const Post = ({ photos, comments, likes, date, author, id }) => {
               <MoreVertIcon />
             </IconButton>
           }
-          title={author.username}
-          subheader={date}
+          title={author.name}
+          subheader={dateString}
         />
 
         <Link href="/post/[id]" as={`/post/${id}`}>
