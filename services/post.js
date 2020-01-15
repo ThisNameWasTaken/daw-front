@@ -6,6 +6,8 @@ export const getPostData = postId => {
 
   const postData = JSON.parse(JSON.stringify(postsData[postId]));
 
+  postData.id = postId;
+
   const authorId = postData.author.id;
 
   postData.author = {

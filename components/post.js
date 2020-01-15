@@ -19,6 +19,7 @@ import {
 } from '@material-ui/icons';
 import { useContext } from 'react';
 import { UserContext } from '../services/user';
+import Link from 'next/link';
 
 const useStyles = makeStyles(theme => ({
   rootContainer: {
@@ -117,7 +118,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Post = ({ photos, comments, likes, date, author }) => {
+const Post = ({ photos, comments, likes, date, author, id }) => {
   const classNames = useStyles({});
 
   const { userData, setUserData } = useContext(UserContext);
@@ -146,15 +147,19 @@ const Post = ({ photos, comments, likes, date, author }) => {
           title={author.username}
           subheader={date}
         />
-        <div className={classNames.media}>
-          <div>
-            {photos.map(({ src, alt }) => (
-              <div key={src}>
-                <img src={src} alt={alt} />
+        <Link href="/post/[id]" as={`/post/${id}`}>
+          <a>
+            <div className={classNames.media}>
+              <div>
+                {photos.map(({ src, alt }) => (
+                  <div key={src}>
+                    <img src={src} alt={alt} />
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
+            </div>
+          </a>
+        </Link>
         <CardActions className={classNames.cardActions} disableSpacing>
           <IconButton aria-label="add to favorites">
             <FavoriteIcon />
