@@ -1,6 +1,8 @@
 import React from 'react';
 import useForm from 'react-hook-form';
 import { Button, Grid, Paper, TextField, makeStyles } from '@material-ui/core';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 
 import ButtonLink from '../components/button-link';
 
@@ -23,10 +25,24 @@ const useStyles = makeStyles(theme => ({
 const Login = () => {
   const classNames = useStyles({});
 
+  const router = useRouter();
+
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = data => {
-    console.log(data);
+  const onSubmit = async data => {
+    try {
+      const response = await fetch('http://localhost:3001/api/login');
+
+      if (!response.ok) throw new Error(response.statusText);
+
+      const { token } = await response.json();
+
+      Cookies.set('token', token);
+
+      router.push('/');
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (

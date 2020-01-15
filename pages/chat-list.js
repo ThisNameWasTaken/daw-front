@@ -10,6 +10,7 @@ import {
   ListItemText,
   makeStyles,
 } from '@material-ui/core';
+import jwtDecode from 'jwt-decode';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -39,7 +40,10 @@ const ChatList = ({ chatList }) => {
   );
 };
 
-ChatList.getInitialProps = async context => {
+ChatList.getInitialProps = async (context, { token }) => {
+  console.log(token);
+  console.log(jwtDecode(token));
+
   // TODO: Get this from the Private Route HOC
   const chatList = await getChatList('e2H4aD3j1');
 

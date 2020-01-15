@@ -7,7 +7,9 @@ export default function withPrivateRoute(WrappedComponent) {
       const { token } = handleAuthSsr(context);
 
       if (WrappedComponent.getInitialProps) {
-        const otherProps = await WrappedComponent.getInitialProps(context);
+        const otherProps = await WrappedComponent.getInitialProps(context, {
+          token,
+        });
 
         return { token, ...otherProps };
       }
