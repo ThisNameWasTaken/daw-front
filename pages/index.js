@@ -4,25 +4,25 @@ import { Container } from '@material-ui/core';
 import Post from '../components/post';
 import { getAllPosts } from '../services/post';
 import withPrivateRoute from '../components/private-route';
+import { getUserData } from '../services/user';
 
-const Index = props => {
-  const { posts } = props;
+const Index = ({ userData, posts }) => (
+  <>
+    <Container>
+      {posts.map(post => (
+        <Post key={post.id} userData={userData} {...post} />
+      ))}
+    </Container>
+  </>
+);
 
-  return (
-    <>
-      <Container>
-        {posts.map(post => (
-          <Post key={post.id} {...post} />
-        ))}
-      </Container>
-    </>
-  );
-};
+Index.getInitialProps = async (context, { decodedToken }) => {
+  const [userData, posts] = await Promise.all([
+    getUserData(decodedToken.id),
+    getAllPosts(),
+  ]);
 
-Index.getInitialProps = async context => {
-  const posts = await getAllPosts();
-
-  return { posts };
+  return { userData, posts };
 };
 
 export default withPrivateRoute(Index);

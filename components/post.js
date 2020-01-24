@@ -12,13 +12,11 @@ import {
   InputAdornment,
 } from '@material-ui/core';
 import {
-  ArrowBack as ArrowBackIcon,
   Send as SendIcon,
   MoreVert as MoreVertIcon,
   Favorite as FavoriteIcon,
   Share as ShareIcon,
 } from '@material-ui/icons';
-import { getUserData } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   rootContainer: {
@@ -222,14 +220,6 @@ const Post = ({
       </Card>
     </div>
   );
-};
-
-Post.getInitialProps = async (context, { decodedToken }) => {
-  const { id } = decodedToken;
-
-  const userData = await getUserData(id);
-
-  return { userData };
 };
 
 export default Post;

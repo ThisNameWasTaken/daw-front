@@ -1,6 +1,4 @@
 import React from 'react';
-import { getChatList } from '../services/chat';
-import withPrivateRoute from '../components/private-route';
 import Link from 'next/link';
 import {
   List,
@@ -10,6 +8,9 @@ import {
   ListItemText,
   makeStyles,
 } from '@material-ui/core';
+
+import withPrivateRoute from '../components/private-route';
+import { getChatList } from '../services/chat';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -40,9 +41,7 @@ const ChatList = ({ chatList }) => {
 };
 
 ChatList.getInitialProps = async (context, { decodedToken }) => {
-  const { id } = decodedToken;
-
-  const chatList = await getChatList(id);
+  const chatList = await getChatList(decodedToken.id);
 
   return { chatList };
 };
