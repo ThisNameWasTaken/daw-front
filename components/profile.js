@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import {
   Avatar,
   Card,
@@ -11,9 +12,10 @@ import {
   Grid,
   Button,
 } from '@material-ui/core';
-import { getUserData, UserContext } from '../services/user';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/router';
+import jwtDecode from 'jwt-decode';
+
+import { getUserData, UserContext } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -68,18 +70,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Profile = ({ userData }) => {
+const Profile = ({ userData, shouldDisplayLogOut }) => {
   const classNames = useStyles({});
 
-  const loggedInUser = useContext(UserContext);
-
   const router = useRouter();
-
-  const shouldDisplayLogOut = !userData;
-
-  if (!userData) {
-    userData = loggedInUser.userData;
-  }
 
   const logOut = () => {
     Cookies.remove('token');
@@ -151,13 +145,18 @@ const Profile = ({ userData }) => {
   );
 };
 
-Profile.getInitialProps = async context => {
-  const { id } = context.query;
+Profile.getInitialProps = async (context, { token }) => {
+  const { id: userId } = jwtDecode(token);
 
-  const userData = await getUserData(id);
+  const { id: profileId } = context.query;
+
+  const userData = await getUserData(profileId || userId);
+
+  const shouldDisplayLogOut = userId === profileId;
 
   return {
     userData,
+    shouldDisplayLogOut,
   };
 };
 
