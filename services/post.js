@@ -18,7 +18,6 @@ const getMonthAsString = monthAsNumber =>
   ][monthAsNumber - 1];
 
 const getDateString = date => {
-  console.log({ date });
   const [year, month, day] = date
     .toString()
     .split('T')[0]

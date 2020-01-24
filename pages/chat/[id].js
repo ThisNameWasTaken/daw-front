@@ -1,6 +1,4 @@
-import React, { useContext } from 'react';
-import { getChatData } from '../../services/chat';
-import Message from '../../components/message';
+import React from 'react';
 import {
   Avatar,
   makeStyles,
@@ -9,9 +7,12 @@ import {
   IconButton,
 } from '@material-ui/core';
 import { Send as SendIcon } from '@material-ui/icons';
-import { UserContext } from '../../services/user';
+
+import { getChatData } from '../../services/chat';
+import Message from '../../components/message';
 import BackButton from '../../components/back-button';
 import withPrivateRoute from '../../components/private-route';
+import { getUserData } from '../../services/user';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,29 +44,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Chat = ({ messages, avatars }) => {
+const Chat = ({ userData, messages, avatars }) => {
   const classNames = useStyles({});
-
-  const userContext = useContext(UserContext);
 
   return (
     <>
       <BackButton />
       <div className={classNames.root}>
-        {userContext.userData &&
-          messages.map(({ date, text, senderId }) => (
-            <Message
-              key={date}
-              avatar={
-                <Avatar
-                  src={avatars[senderId].src}
-                  alt={avatars[senderId].alt}
-                />
-              }
-              text={text}
-              align={senderId === userContext.userData.id ? 'right' : 'left'}
-            />
-          ))}
+        {messages.map(({ date, text, senderId }) => (
+          <Message
+            key={date}
+            avatar={
+              <Avatar src={avatars[senderId].src} alt={avatars[senderId].alt} />
+            }
+            text={text}
+            align={senderId === userData.id ? 'right' : 'left'}
+          />
+        ))}
         <div className={classNames.chatInput}>
           <div>
             <TextField
@@ -95,12 +90,13 @@ const Chat = ({ messages, avatars }) => {
   );
 };
 
-Chat.getInitialProps = async context => {
-  const { id } = context.query;
+Chat.getInitialProps = async (context, { decodedToken }) => {
+  const [{ messages, avatars }, userData] = await Promise.all([
+    getChatData(context.query.id),
+    getUserData(decodedToken.id),
+  ]);
 
-  const { messages, avatars } = await getChatData(id);
-
-  return { messages, avatars };
+  return { userData, messages, avatars };
 };
 
 export default withPrivateRoute(Chat);

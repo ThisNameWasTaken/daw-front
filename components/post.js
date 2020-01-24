@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import {
   Card,
   CardHeader,
@@ -17,9 +18,7 @@ import {
   Favorite as FavoriteIcon,
   Share as ShareIcon,
 } from '@material-ui/icons';
-import { useContext } from 'react';
-import { UserContext } from '../services/user';
-import Link from 'next/link';
+import { getUserData } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   rootContainer: {
@@ -118,14 +117,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Post = ({ photos, comments, likes, dateString, author, id }) => {
+const Post = ({
+  userData,
+  photos,
+  comments,
+  likes,
+  dateString,
+  author,
+  id,
+}) => {
   const classNames = useStyles({});
-
-  const { userData, setUserData } = useContext(UserContext);
-
-  // useEffect(() => {
-  //   loggedInUser.setUserData({ id: 'lorem' });
-  // }, []);
 
   const onAddComment = event => console.log('comment');
 
@@ -223,6 +224,12 @@ const Post = ({ photos, comments, likes, dateString, author, id }) => {
   );
 };
 
-Post.getInitialProps = () => {};
+Post.getInitialProps = async (context, { decodedToken }) => {
+  const { id } = decodedToken;
+
+  const userData = await getUserData(id);
+
+  return { userData };
+};
 
 export default Post;

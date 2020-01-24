@@ -10,7 +10,6 @@ import {
   ListItemText,
   makeStyles,
 } from '@material-ui/core';
-import jwtDecode from 'jwt-decode';
 
 const useStyles = makeStyles(theme => ({
   link: {
@@ -40,8 +39,8 @@ const ChatList = ({ chatList }) => {
   );
 };
 
-ChatList.getInitialProps = async (context, { token }) => {
-  const { id } = jwtDecode(token);
+ChatList.getInitialProps = async (context, { decodedToken }) => {
+  const { id } = decodedToken;
 
   const chatList = await getChatList(id);
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import jwtDecode from 'jwt-decode';
 import { handleAuthSsr } from '../services/auth';
 
 export default function withPrivateRoute(WrappedComponent) {
@@ -6,15 +7,18 @@ export default function withPrivateRoute(WrappedComponent) {
     static async getInitialProps(context) {
       const { token } = handleAuthSsr(context);
 
+      const decodedToken = jwtDecode(token);
+
       if (WrappedComponent.getInitialProps) {
         const otherProps = await WrappedComponent.getInitialProps(context, {
           token,
+          decodedToken,
         });
 
-        return { token, ...otherProps };
+        return { token, decodedToken, ...otherProps };
       }
 
-      return { token };
+      return { token, decodedToken };
     }
 
     render() {

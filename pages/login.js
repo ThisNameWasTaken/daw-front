@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
-import useForm from 'react-hook-form';
-import { Button, Grid, Paper, TextField, makeStyles } from '@material-ui/core';
-import Cookies from 'js-cookie';
+import React from 'react';
 import { useRouter } from 'next/router';
+import { Button, Grid, Paper, TextField, makeStyles } from '@material-ui/core';
+import useForm from 'react-hook-form';
+import Cookies from 'js-cookie';
 
 import ButtonLink from '../components/button-link';
-import { UserContext } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -30,11 +29,7 @@ const Login = () => {
 
   const { register, handleSubmit, errors } = useForm();
 
-  const { logInUser } = useContext(UserContext);
-
   const logIn = async data => {
-    console.log({ data });
-
     try {
       const response = await fetch('http://localhost:3001/api/login', {
         method: 'POST',
@@ -49,7 +44,6 @@ const Login = () => {
       const { token } = await response.json();
 
       Cookies.set('token', token);
-      await logInUser();
       router.push('/');
     } catch (err) {
       console.error(err);

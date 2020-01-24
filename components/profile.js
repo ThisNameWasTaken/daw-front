@@ -13,9 +13,8 @@ import {
   Button,
 } from '@material-ui/core';
 import Cookies from 'js-cookie';
-import jwtDecode from 'jwt-decode';
 
-import { getUserData, UserContext } from '../services/user';
+import { getUserData } from '../services/user';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -145,14 +144,14 @@ const Profile = ({ userData, shouldDisplayLogOut }) => {
   );
 };
 
-Profile.getInitialProps = async (context, { token }) => {
-  const { id: userId } = jwtDecode(token);
+Profile.getInitialProps = async (context, { decodedToken }) => {
+  const { id: userId } = decodedToken;
 
   const { id: profileId } = context.query;
 
   const userData = await getUserData(profileId || userId);
 
-  const shouldDisplayLogOut = userId === profileId;
+  const shouldDisplayLogOut = userId === profileId || !profileId;
 
   return {
     userData,
